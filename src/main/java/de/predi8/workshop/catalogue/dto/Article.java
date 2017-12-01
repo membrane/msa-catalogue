@@ -3,9 +3,12 @@ package de.predi8.workshop.catalogue.dto;
 import java.math.BigDecimal;
 
 public class Article {
-	private final String uuid;
-	private final String name;
-	private final BigDecimal price;
+	private String uuid;
+	private String name;
+	private BigDecimal price;
+
+	public Article() {
+	}
 
 	public Article(String uuid, String name, BigDecimal price) {
 		this.uuid = uuid;

@@ -3,9 +3,12 @@ package de.predi8.workshop.catalogue.event;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class Operation {
-	private final String type;
-	private final String action;
-	private final JsonNode object;
+	private String type;
+	private String action;
+	private JsonNode object;
+
+	public Operation() {
+	}
 
 	public Operation(String type, String action, JsonNode object) {
 		this.type = type;
