@@ -15,8 +15,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @SpringBootApplication
 public class CatalogueApplication {
 	@Bean
-	public List<Article> articles() {
-		return new CopyOnWriteArrayList<>();
+	public Map<String,Article> articles() {
+		return new ConcurrentHashMap<>();
 	}
 
 	public static void main(String[] args) {

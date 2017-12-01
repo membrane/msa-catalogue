@@ -2,32 +2,34 @@ package de.predi8.workshop.catalogue.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.predi8.workshop.catalogue.dto.Article;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
 
-@Slf4j
-@RequiredArgsConstructor
 @Service
 public class ShopListener {
+	private static final Logger log = org.slf4j.LoggerFactory.getLogger(ShopListener.class);
+
 	private final ObjectMapper objectMapper;
 	private final List<Article> articles;
 
-	@KafkaListener(topics = "shop")
-	public void listen(Operation operation) throws IOException {
-		if (!operation.getType().equals("article")) {
-			log.info("Unknown type {}", operation.getType());
+	public ShopListener(ObjectMapper objectMapper, List<Article> articles) {
+		this.objectMapper = objectMapper;
+		this.articles = articles;
+	}
 
+	@KafkaListener(topics = "shop")
+	public void listen(String playload) throws IOException {
+		Operation operation = objectMapper.readValue(playload, Operation.class);
+
+		if (!operation.getType().equals("article")) {
 			return;
 		}
 
 		if (!operation.getAction().equals("create")) {
-			log.info("Unknown action {}", operation.getAction());
-
 			return;
 		}
 
