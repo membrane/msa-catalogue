@@ -19,8 +19,8 @@ public class ShopListener {
 	}
 
 	@KafkaListener(topics = "shop")
-	public void listen(String playload) throws IOException {
-		Operation operation = objectMapper.readValue(playload, Operation.class);
+	public void listen(String payload) throws IOException {
+		Operation operation = objectMapper.readValue(payload, Operation.class);
 
 		if (!operation.getType().equals("article")) {
 			return;
