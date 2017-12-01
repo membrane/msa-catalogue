@@ -2,21 +2,18 @@ package de.predi8.workshop.catalogue.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.predi8.workshop.catalogue.dto.Article;
-import org.slf4j.Logger;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 
 @Service
 public class ShopListener {
-	private static final Logger log = org.slf4j.LoggerFactory.getLogger(ShopListener.class);
-
 	private final ObjectMapper objectMapper;
-	private final List<Article> articles;
+	private final Map<String, Article> articles;
 
-	public ShopListener(ObjectMapper objectMapper, List<Article> articles) {
+	public ShopListener(ObjectMapper objectMapper, Map<String, Article> articles) {
 		this.objectMapper = objectMapper;
 		this.articles = articles;
 	}
@@ -29,10 +26,12 @@ public class ShopListener {
 			return;
 		}
 
-		if (!operation.getAction().equals("create")) {
-			return;
-		}
+		Article article = objectMapper.convertValue(operation.getObject(), Article.class);
 
-		articles.add(objectMapper.convertValue(operation.getObject(), Article.class));
+		switch (operation.getAction()) {
+			case "create":
+			case "update":
+				articles.put(article.getUuid(), article);
+		}
 	}
 }
