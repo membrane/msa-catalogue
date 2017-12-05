@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @EnableKafka
 @SpringBootApplication
 public class CatalogueApplication {
+
 	@Bean
 	public Map<String,Article> articles() {
 		return new ConcurrentHashMap<>();
@@ -20,4 +21,5 @@ public class CatalogueApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CatalogueApplication.class, args);
 	}
+
 }
