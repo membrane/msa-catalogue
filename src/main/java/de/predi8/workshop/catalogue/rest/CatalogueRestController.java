@@ -1,7 +1,9 @@
 package de.predi8.workshop.catalogue.rest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.predi8.workshop.catalogue.dto.Article;
 import de.predi8.workshop.catalogue.error.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-@RequestMapping("/articles")
+@RequestMapping
 @RestController
 public class CatalogueRestController {
 	private final Map<String, Article> articles;
+	@Autowired
+	private ObjectMapper objectMapper;
 
 	public CatalogueRestController(Map<String, Article> articles) {
 		this.articles = articles;
