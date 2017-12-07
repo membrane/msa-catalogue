@@ -5,7 +5,7 @@ node {
 
         stage('Maven Build') {
             sh "echo $SHELL"
-            sh "mvn package"
+            sh "mvn -DskipTests=true package"
         }
 
         stage('Docker image') {
