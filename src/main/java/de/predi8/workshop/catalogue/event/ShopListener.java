@@ -3,6 +3,8 @@ package de.predi8.workshop.catalogue.event;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.predi8.workshop.catalogue.dto.Article;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.PartitionOffset;
+import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -18,7 +20,10 @@ public class ShopListener {
 		this.articles = articles;
 	}
 
-	@KafkaListener(topics = "shop")
+	@KafkaListener(id = "stock-listener",
+			topicPartitions =
+					{ @TopicPartition(topic = "shop",
+							partitionOffsets = @PartitionOffset(partition = "0", initialOffset = "0"))})
 	public void listen(String payload) throws IOException {
 		Operation operation = objectMapper.readValue(payload, Operation.class);
 
@@ -26,12 +31,17 @@ public class ShopListener {
 			return;
 		}
 
+		System.out.println("operation = " + operation);
+
 		Article article = objectMapper.convertValue(operation.getObject(), Article.class);
 
 		switch (operation.getAction()) {
 			case "create":
 			case "update":
 				articles.put(article.getUuid(), article);
+				break;
+			case "delete":
+				articles.remove(article.getUuid());
 		}
 	}
 }

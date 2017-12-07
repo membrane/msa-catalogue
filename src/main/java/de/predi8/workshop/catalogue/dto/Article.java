@@ -31,4 +31,8 @@ public class Article {
 	public String toString() {
 		return "Article(uuid=" + uuid + ", name=" + name + ", price=" + price + ")";
 	}
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 }
