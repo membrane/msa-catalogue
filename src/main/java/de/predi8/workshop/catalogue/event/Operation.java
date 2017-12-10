@@ -1,23 +1,34 @@
 package de.predi8.workshop.catalogue.event;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static net.logstash.logback.marker.Markers.append;
+import static net.logstash.logback.marker.Markers.appendEntries;
 
 public class Operation {
-	private String type;
+
+	private static final Logger log = LoggerFactory.getLogger(ShopListener.class);
+
+	private String bo;
 	private String action;
 	private JsonNode object;
 
 	public Operation() {
 	}
 
-	public Operation(String type, String action, JsonNode object) {
-		this.type = type;
+	public Operation(String bo, String action, JsonNode object) {
+		this.bo = bo;
 		this.action = action;
 		this.object = object;
 	}
 
-	public String getType() {
-		return this.type;
+	public String getBo() {
+		return this.bo;
 	}
 
 	public String getAction() {
@@ -29,6 +40,26 @@ public class Operation {
 	}
 
 	public String toString() {
-		return "Operation(type=" + type + ", action=" + action + ", object=" + object + ")";
+		return "Operation( bo=" + bo + " action=" + action + " object=" + object + ")";
 	}
+
+	public void logSend() {
+		log("send");
+	}
+
+	public void logReceive() {
+		log("receive");
+	}
+
+	private void log(String direction) {
+
+		Map<String,Object> entries = new HashMap();
+		entries.put("bo",bo);
+		entries.put("action", action);
+		entries.put("object", object);
+		entries.put("direction", direction);
+
+		log.info(appendEntries(entries),"");
+	}
+
 }

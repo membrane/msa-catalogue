@@ -2,6 +2,8 @@ package de.predi8.workshop.catalogue.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.predi8.workshop.catalogue.dto.Article;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.annotation.PartitionOffset;
 import org.springframework.kafka.annotation.TopicPartition;
@@ -12,11 +14,14 @@ import java.util.Map;
 
 @Service
 public class ShopListener {
-	private final ObjectMapper objectMapper;
+
+	private final Logger log = LoggerFactory.getLogger(ShopListener.class);
+
+	private final ObjectMapper mapper;
 	private final Map<String, Article> articles;
 
-	public ShopListener(ObjectMapper objectMapper, Map<String, Article> articles) {
-		this.objectMapper = objectMapper;
+	public ShopListener(ObjectMapper mapper, Map<String, Article> articles) {
+		this.mapper = mapper;
 		this.articles = articles;
 	}
 
@@ -25,17 +30,18 @@ public class ShopListener {
 					{ @TopicPartition(topic = "shop",
 							partitionOffsets = @PartitionOffset(partition = "0", initialOffset = "0"))})
 	public void listen(String payload) throws IOException {
-		Operation operation = objectMapper.readValue(payload, Operation.class);
 
-		if (!operation.getType().equals("article")) {
+		Operation op = mapper.readValue(payload, Operation.class);
+
+		if (!op.getBo().equals("article")) {
 			return;
 		}
 
-		System.out.println("operation = " + operation);
+		op.logReceive();
 
-		Article article = objectMapper.convertValue(operation.getObject(), Article.class);
+		Article article = mapper.convertValue(op.getObject(), Article.class);
 
-		switch (operation.getAction()) {
+		switch (op.getAction()) {
 			case "create":
 			case "update":
 				articles.put(article.getUuid(), article);

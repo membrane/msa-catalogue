@@ -4,8 +4,11 @@ node {
         }
 
         stage('Maven Build') {
-            sh "echo $SHELL"
             sh "mvn -DskipTests=true package"
+        }
+
+        stage('Maven Tests') {
+            sh "mvn test"
         }
 
         stage('Docker image') {
