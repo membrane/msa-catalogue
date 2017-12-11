@@ -17,6 +17,6 @@ node {
 
         stage("Deploy") {
             sh "docker rm -f catalogue || echo 'ok'"
-            sh "docker run -d --name catalogue --net shop -p 8080:8080 catalogue"
+            sh "docker run -d --name catalogue --net shop -p 2020:8080 catalogue"
         }
 }

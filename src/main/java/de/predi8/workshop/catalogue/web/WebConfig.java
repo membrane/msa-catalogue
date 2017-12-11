@@ -1,4 +1,4 @@
-package de.predi8.workshop.catalogue.rest;
+package de.predi8.workshop.catalogue.web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;

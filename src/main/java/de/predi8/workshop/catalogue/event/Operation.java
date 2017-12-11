@@ -7,12 +7,11 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-import static net.logstash.logback.marker.Markers.append;
 import static net.logstash.logback.marker.Markers.appendEntries;
 
 public class Operation {
 
-	private static final Logger log = LoggerFactory.getLogger(ShopListener.class);
+	private static final Logger log = LoggerFactory.getLogger(Operation.class);
 
 	private String bo;
 	private String action;

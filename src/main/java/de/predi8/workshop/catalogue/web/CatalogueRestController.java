@@ -1,6 +1,5 @@
-package de.predi8.workshop.catalogue.rest;
+package de.predi8.workshop.catalogue.web;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.predi8.workshop.catalogue.dto.Article;
 import de.predi8.workshop.catalogue.error.NotFoundException;
@@ -19,8 +18,6 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-
-import static net.logstash.logback.marker.Markers.append;
 
 @RestController
 @RequestMapping("articles/")

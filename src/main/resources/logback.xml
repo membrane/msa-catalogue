@@ -5,6 +5,7 @@
 
     <springProperty scope="context" name="service" source="spring.application.name"/>
 
+    <!--<appender name="metrics" class="io.prometheus.client.logback.InstrumentedAppender" />-->
     <appender name="stash"
               class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>localhost:5000</destination>
@@ -26,5 +27,6 @@
     <root level="info">
         <appender-ref ref="stash"/>
         <appender-ref ref="stdout"/>
+        <!--<appender-ref ref="metrics" />-->
     </root>
 </configuration>
