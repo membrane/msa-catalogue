@@ -3,6 +3,7 @@ package de.predi8.workshop.catalogue.dto;
 import java.math.BigDecimal;
 
 public class Article {
+
 	private String uuid;
 	private String name;
 	private BigDecimal price;
