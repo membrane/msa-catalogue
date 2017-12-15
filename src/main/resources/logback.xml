@@ -1,39 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-
-    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-
-    <springProperty scope="context" name="service" source="spring.application.name"/>
-
-    <!--<appender name="metrics" class="io.prometheus.client.logback.InstrumentedAppender" />-->
-
-    <appender name="stash"
-              class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>localhost:5000</destination>
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-            <fieldNames>
-                <message>log_msg</message>
-            </fieldNames>
-        </encoder>
-        <keepAliveDuration>5 minutes</keepAliveDuration>
-    </appender>
-
-
-    <appender name="stdout"
-              class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-            <fieldNames>
-                <message>log_msg</message>
-            </fieldNames>
-        </encoder>
-    </appender>
-
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <include resource="com/predic8/logging/logback-json.xml"/>
 
     <root level="info">
         <appender-ref ref="stash"/>
-        <appender-ref ref="stdout"/>
-        <!--<appender-ref ref="metrics" />-->
+        <appender-ref ref="jsonStdout"/>
     </root>
-
-
 </configuration>

@@ -57,9 +57,9 @@
 			<artifactId>spring-cloud-starter-zipkin</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.moelholm</groupId>
-			<artifactId>prometheus-spring-boot-starter</artifactId>
-			<version>1.0.1</version>
+			<groupId>com.predic8.workshop</groupId>
+			<artifactId>msa-logging-spring-boot-starter</artifactId>
+			<version>0.1.0</version>
 		</dependency>
 	</dependencies>
 

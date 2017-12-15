@@ -1,4 +1,4 @@
-package de.predi8.workshop.catalogue.web;
+package de.predi8.workshop.catalogue.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.predi8.workshop.catalogue.dto.Article;
@@ -22,7 +22,6 @@ import java.util.concurrent.TimeoutException;
 @RestController
 @RequestMapping("articles/")
 public class CatalogueRestController {
-
 	private final Logger log = LoggerFactory.getLogger(ShopListener.class);
 
 	private Map<String, Article> articles;
@@ -31,7 +30,6 @@ public class CatalogueRestController {
 
 	private KafkaTemplate<String, Operation> kafka;
 
-	@Autowired
 	public CatalogueRestController(Map<String, Article> articles, ObjectMapper objectMapper, KafkaTemplate<String, Operation> kafka) {
 		this.articles = articles;
 		this.mapper = objectMapper;
@@ -45,7 +43,6 @@ public class CatalogueRestController {
 
 	@GetMapping("/{id}")
 	public Article index(@PathVariable String id) {
-
 		Article article = articles.get(id);
 
 		if (article == null) {
