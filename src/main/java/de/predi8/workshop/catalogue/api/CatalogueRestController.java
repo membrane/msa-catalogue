@@ -4,46 +4,45 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.predi8.workshop.catalogue.dto.Article;
 import de.predi8.workshop.catalogue.error.NotFoundException;
 import de.predi8.workshop.catalogue.event.Operation;
-import de.predi8.workshop.catalogue.event.ShopListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import de.predi8.workshop.catalogue.repository.ArticleRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 @RestController
-@RequestMapping("articles/")
+@RequestMapping("/articles")
 public class CatalogueRestController {
-	private final Logger log = LoggerFactory.getLogger(ShopListener.class);
-
-	private Map<String, Article> articles;
-
+	private ArticleRepository articleRepository;
 	private ObjectMapper mapper;
-
 	private KafkaTemplate<String, Operation> kafka;
 
-	public CatalogueRestController(Map<String, Article> articles, ObjectMapper objectMapper, KafkaTemplate<String, Operation> kafka) {
-		this.articles = articles;
+	public CatalogueRestController(ArticleRepository articleRepository, ObjectMapper objectMapper, KafkaTemplate<String, Operation> kafka) {
+		this.articleRepository = articleRepository;
 		this.mapper = objectMapper;
 		this.kafka = kafka;
 	}
 
 	@GetMapping
-	public Map<String, Article> index() {
-		return articles;
+	public List<Article> index() {
+		return articleRepository.findAll();
 	}
 
 	@GetMapping("/{id}")
 	public Article index(@PathVariable String id) {
-		Article article = articles.get(id);
+		Article article = articleRepository.findOne(id);
 
 		if (article == null) {
 			throw new NotFoundException();
@@ -68,8 +67,7 @@ public class CatalogueRestController {
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable String id) throws InterruptedException, ExecutionException, TimeoutException {
-
-		Article article = articles.get(id);
+		Article article = articleRepository.findOne(id);
 
 		if (article == null) {
 			throw new NotFoundException();
@@ -81,4 +79,6 @@ public class CatalogueRestController {
 
 		kafka.send("shop", op).get(100, TimeUnit.MILLISECONDS);
 	}
+
+	// TODO PUT
 }

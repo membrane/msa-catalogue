@@ -2,6 +2,7 @@ package de.predi8.workshop.catalogue.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.predi8.workshop.catalogue.dto.Article;
+import de.predi8.workshop.catalogue.repository.ArticleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -14,23 +15,16 @@ import java.util.Map;
 
 @Service
 public class ShopListener {
-
-	private final Logger log = LoggerFactory.getLogger(ShopListener.class);
-
 	private final ObjectMapper mapper;
-	private final Map<String, Article> articles;
+	private final ArticleRepository articleRepository;
 
-	public ShopListener(ObjectMapper mapper, Map<String, Article> articles) {
+	public ShopListener(ObjectMapper mapper, ArticleRepository articleRepository) {
 		this.mapper = mapper;
-		this.articles = articles;
+		this.articleRepository = articleRepository;
 	}
 
-	@KafkaListener(id = "stock-listener",
-			topicPartitions =
-					{ @TopicPartition(topic = "shop",
-							partitionOffsets = @PartitionOffset(partition = "0", initialOffset = "0"))})
+	@KafkaListener(topics = "shop")
 	public void listen(String payload) throws IOException {
-
 		Operation op = mapper.readValue(payload, Operation.class);
 
 		if (!op.getBo().equals("article")) {
@@ -44,10 +38,12 @@ public class ShopListener {
 		switch (op.getAction()) {
 			case "create":
 			case "update":
-				articles.put(article.getUuid(), article);
+				articleRepository.save(article);
+				//articles.put(article.getUuid(), article);
 				break;
 			case "delete":
-				articles.remove(article.getUuid());
+				articleRepository.delete(article);
+				// articles.remove(article.getUuid());
 		}
 	}
 }

@@ -1,9 +1,12 @@
 package de.predi8.workshop.catalogue.dto;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
+@Entity
 public class Article {
-
+	@Id
 	private String uuid;
 	private String name;
 	private BigDecimal price;
