@@ -52,7 +52,7 @@ public class Operation {
 
 	private void log(String direction) {
 
-		Map<String,Object> entries = new HashMap();
+		Map<String,Object> entries = new HashMap<>();
 		entries.put("bo",bo);
 		entries.put("action", action);
 		entries.put("object", object);
