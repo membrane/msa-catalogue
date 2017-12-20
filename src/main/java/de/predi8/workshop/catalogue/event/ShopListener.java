@@ -1,17 +1,12 @@
 package de.predi8.workshop.catalogue.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.predi8.workshop.catalogue.dto.Article;
+import de.predi8.workshop.catalogue.domain.Article;
 import de.predi8.workshop.catalogue.repository.ArticleRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.annotation.PartitionOffset;
-import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Map;
 
 @Service
 public class ShopListener {

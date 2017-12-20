@@ -1,7 +1,7 @@
 package de.predi8.workshop.catalogue.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.predi8.workshop.catalogue.dto.Article;
+import de.predi8.workshop.catalogue.domain.Article;
 import de.predi8.workshop.catalogue.error.NotFoundException;
 import de.predi8.workshop.catalogue.event.Operation;
 import de.predi8.workshop.catalogue.repository.ArticleRepository;
