@@ -94,4 +94,9 @@ public class CatalogueRestController {
 
 		return ResponseEntity.accepted().build();
 	}
+
+	@GetMapping("/count")
+	public long count() {
+		return articleRepository.count();
+	}
 }

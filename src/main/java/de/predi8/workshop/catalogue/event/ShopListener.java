@@ -27,8 +27,7 @@ public class ShopListener {
 	public void listen(String payload) throws IOException, InvocationTargetException, IllegalAccessException {
 		Operation op = mapper.readValue(payload, Operation.class);
 
-		if (!op.getBo().equals("article")) {
-			return;
+		if (!op.getBo().equals("article")) { return;
 		}
 
 		op.logReceive();
