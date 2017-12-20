@@ -28,6 +28,14 @@ public class Article {
 		return this.name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
 	public BigDecimal getPrice() {
 		return this.price;
 	}
