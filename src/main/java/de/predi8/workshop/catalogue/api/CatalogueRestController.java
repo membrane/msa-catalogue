@@ -54,7 +54,6 @@ public class CatalogueRestController {
 
 	@PostMapping
 	public ResponseEntity<Article> createArticle(@RequestBody Article article) throws Exception {
-
 		article.setUuid(UUID.randomUUID().toString());
 
 		Operation op = new Operation("article", "create", mapper.valueToTree(article));
