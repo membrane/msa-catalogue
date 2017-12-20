@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,7 +67,7 @@ public class CatalogueRestController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable String id) throws InterruptedException, ExecutionException, TimeoutException {
+	public ResponseEntity<Void> delete(@PathVariable String id) throws InterruptedException, ExecutionException, TimeoutException {
 		Article article = articleRepository.findOne(id);
 
 		if (article == null) {
@@ -78,7 +79,20 @@ public class CatalogueRestController {
 		op.logSend();
 
 		kafka.send("shop", op).get(100, TimeUnit.MILLISECONDS);
+
+		return ResponseEntity.accepted().build();
 	}
 
-	// TODO PUT
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> update(@PathVariable String id, @RequestBody Article article) throws InterruptedException, ExecutionException, TimeoutException {
+		article.setUuid(id);
+
+		Operation op = new Operation("article", "update", mapper.valueToTree(article));
+
+		op.logSend();
+
+		kafka.send("shop", op).get(100, TimeUnit.MILLISECONDS);
+
+		return ResponseEntity.accepted().build();
+	}
 }

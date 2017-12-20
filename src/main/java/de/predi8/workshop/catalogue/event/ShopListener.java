@@ -34,11 +34,9 @@ public class ShopListener {
 			case "create":
 			case "update":
 				articleRepository.save(article);
-				//articles.put(article.getUuid(), article);
 				break;
 			case "delete":
 				articleRepository.delete(article);
-				// articles.remove(article.getUuid());
 		}
 	}
 }
