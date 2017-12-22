@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
@@ -53,8 +55,9 @@ public class CatalogueRestController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Article> createArticle(@RequestBody Article article) throws Exception {
-		article.setUuid(UUID.randomUUID().toString());
+	public ResponseEntity<Article> createArticle(@RequestBody Article article, UriComponentsBuilder builder) throws Exception {
+		String id = UUID.randomUUID().toString();
+		article.setUuid(id);
 
 		Operation op = new Operation("article", "create", mapper.valueToTree(article));
 
@@ -62,7 +65,7 @@ public class CatalogueRestController {
 
 		kafka.send("shop", op).get(100, TimeUnit.MILLISECONDS);
 
-		return ResponseEntity.created(URI.create("todo")).build();
+		return ResponseEntity.created(builder.path("/articles/{id}").buildAndExpand(id).toUri()).build();
 	}
 
 	@DeleteMapping("/{id}")
