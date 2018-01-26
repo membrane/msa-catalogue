@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import static org.springframework.beans.BeanUtils.copyProperties;
-
 @Service
 public class ShopListener {
 	private final ObjectMapper mapper;
@@ -24,7 +22,7 @@ public class ShopListener {
 	}
 
 	@KafkaListener(topics = "shop")
-	public void listen(Operation op) throws IOException, InvocationTargetException, IllegalAccessException {
+	public void listen(Operation op) throws InvocationTargetException, IllegalAccessException {
 		if (!op.getBo().equals("article")) return;
 
 		op.logReceive();

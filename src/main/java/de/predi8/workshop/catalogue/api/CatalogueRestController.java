@@ -54,50 +54,6 @@ public class CatalogueRestController {
 		return article;
 	}
 
-	@PostMapping
-	public ResponseEntity<Article> createArticle(@RequestBody Article article, UriComponentsBuilder builder) throws Exception {
-		String id = UUID.randomUUID().toString();
-		article.setUuid(id);
-
-		Operation op = new Operation("article", "create", mapper.valueToTree(article));
-
-		op.logSend();
-
-		kafka.send("shop", op).get(100, TimeUnit.MILLISECONDS);
-
-		return ResponseEntity.created(builder.path("/articles/{id}").buildAndExpand(id).toUri()).build();
-	}
-
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable String id) throws InterruptedException, ExecutionException, TimeoutException {
-		Article article = articleRepository.findOne(id);
-
-		if (article == null) {
-			throw new NotFoundException();
-		}
-
-		Operation op = new Operation("article", "delete", mapper.valueToTree(article));
-
-		op.logSend();
-
-		kafka.send("shop", op).get(100, TimeUnit.MILLISECONDS);
-
-		return ResponseEntity.accepted().build();
-	}
-
-	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@PathVariable String id, @RequestBody Article article) throws InterruptedException, ExecutionException, TimeoutException {
-		article.setUuid(id);
-
-		Operation op = new Operation("article", "update", mapper.valueToTree(article));
-
-		op.logSend();
-
-		kafka.send("shop", op).get(100, TimeUnit.MILLISECONDS);
-
-		return ResponseEntity.accepted().build();
-	}
-
 	@GetMapping("/count")
 	public long count() {
 		return articleRepository.count();
