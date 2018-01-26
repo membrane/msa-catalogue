@@ -29,12 +29,10 @@ import java.util.concurrent.TimeoutException;
 @RequestMapping("/articles")
 public class CatalogueRestController {
 	private ArticleRepository articleRepository;
-	private ObjectMapper mapper;
 	private KafkaTemplate<String, Operation> kafka;
 
-	public CatalogueRestController(ArticleRepository articleRepository, ObjectMapper objectMapper, KafkaTemplate<String, Operation> kafka) {
+	public CatalogueRestController(ArticleRepository articleRepository, KafkaTemplate<String, Operation> kafka) {
 		this.articleRepository = articleRepository;
-		this.mapper = objectMapper;
 		this.kafka = kafka;
 	}
 

@@ -22,28 +22,7 @@ public class ShopListener {
 	}
 
 	@KafkaListener(topics = "shop")
-	public void listen(Operation op) throws InvocationTargetException, IllegalAccessException {
-		if (!op.getBo().equals("article")) return;
-
-		op.logReceive();
-
-		Article article = mapper.convertValue(op.getObject(), Article.class);
-
-		switch (op.getAction()) {
-			case "create":
-				articleRepository.save(article);
-
-				break;
-			case "update":
-				Article old = articleRepository.findOne(article.getUuid());
-
-				beanUtils.copyProperties(old, article);
-
-				articleRepository.save(old);
-
-				break;
-			case "delete":
-				articleRepository.delete(article);
-		}
+	public void listen(Operation op) {
+		System.out.println(op);
 	}
 }
