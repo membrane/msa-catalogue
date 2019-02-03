@@ -1,6 +1,10 @@
 package de.predi8.workshop.catalogue;
 
 
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.ser.std.JsonValueSerializer;
 import de.predi8.workshop.catalogue.event.Operation;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -19,15 +23,20 @@ import org.springframework.util.StringUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-//@EnableKafka
-//@Configuration
+@EnableKafka
+@Configuration
 public class KafkaConfiguration {
+
 
 	@Bean
 	public ConsumerFactory<String, Operation> consumerFactory(KafkaProperties props) {
+
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+
 		return new DefaultKafkaConsumerFactory<>( props.buildConsumerProperties(),
 				new StringDeserializer(),
-				new JsonDeserializer<>(Operation.class));
+				new JsonDeserializer<>(Operation.class, mapper, false));
 	}
 
 
