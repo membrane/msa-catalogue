@@ -6,15 +6,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.EnableKafka;
 
-@EnableKafka
+import static org.springframework.boot.SpringApplication.run;
+
 @SpringBootApplication
 public class CatalogueApplication {
+
 	@Bean
 	public NullAwareBeanUtilsBean beanUtils() {
 		return new NullAwareBeanUtilsBean();
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(CatalogueApplication.class, args);
+		run(CatalogueApplication.class, args);
 	}
 }

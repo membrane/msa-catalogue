@@ -1,0 +1,45 @@
+spring:
+
+  application:
+    name: catalogue
+
+  datasource:
+      url: jdbc:postgresql://localhost:5432/catalogue
+      username: catalogue
+      password: catalogue
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          # Fix for Spring 2 and Postgres
+          lob:
+            non_contextual_creation: true
+  kafka:
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: catalogue-${random.uuid}
+      auto-offset-reset: earliest
+
+  cloud:
+    consul:
+      discovery:
+        # see https://github.com/spring-cloud/spring-cloud-consul/issues/365
+        health-check-path: /info
+
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    health:
+      show-details: true
+
+    web:
+      exposure:
+        include: "*"
+
