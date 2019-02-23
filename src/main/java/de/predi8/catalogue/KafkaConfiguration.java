@@ -35,21 +35,25 @@ public class KafkaConfiguration {
 				new JsonDeserializer<>(Operation.class, false));
 	}
 
-	/**
-	 * Custom mapper with identation
-	 *
-	 * @param props
-	 * @return
-	 */
+
 	@Bean
 	public ProducerFactory<Object, Object> producerFactory( KafkaProperties props) {
 
+		return new DefaultKafkaProducerFactory<>(props.buildProducerProperties(), new StringSerializer(), (JsonSerializer) getJSONSerializer());
+	}
+
+	private JsonSerializer<Operation> getJSONSerializer() {
+		return new JsonSerializer<Operation>(getObjectMapper());
+	}
+
+	/**
+	 * Custom mapper with identation
+	 *
+	 */
+	private ObjectMapper getObjectMapper() {
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-		JsonSerializer ser =  new JsonSerializer<Operation>(mapper);
-
-		return new DefaultKafkaProducerFactory<>(props.buildProducerProperties(), new StringSerializer(),ser);
+		mapper.enable( INDENT_OUTPUT);
+		return mapper;
 	}
 
 

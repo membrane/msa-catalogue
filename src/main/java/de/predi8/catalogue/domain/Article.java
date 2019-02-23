@@ -5,7 +5,9 @@ import javax.persistence.Id;
 import java.math.BigDecimal;
 
 @Entity
+@JsonIgnoreProperties( value =  {"hibernateLazyInitializer", "handler"},ignoreUnknown = true)
 public class Article {
+
 	@Id
 	private String uuid;
 	private String name;

@@ -12,38 +12,17 @@ import java.lang.reflect.InvocationTargetException;
 @Service
 public class ShopListener {
 	private final ObjectMapper mapper;
-	private final ArticleRepository articleRepo;
+	private final ArticleRepository repo;
 	private final NullAwareBeanUtilsBean beanUtils;
 
-	public ShopListener(ObjectMapper mapper, ArticleRepository articleRepo, NullAwareBeanUtilsBean beanUtils) {
+	public ShopListener(ObjectMapper mapper, ArticleRepository repo, NullAwareBeanUtilsBean beanUtils) {
 		this.mapper = mapper;
-		this.articleRepo = articleRepo;
+		this.repo = repo;
 		this.beanUtils = beanUtils;
 	}
 
 	@KafkaListener(topics = "shop")
 	public void listen(Operation op) throws Exception {
-		if (!op.getBo().equals("article")) return;
-
-		op.logReceive();
-
-		Article article = mapper.convertValue(op.getObject(), Article.class);
-
-		switch (op.getAction()) {
-			case "create":
-				articleRepo.save(article);
-
-				break;
-			case "update":
-				Article old = articleRepo.getOne(article.getUuid());
-
-				beanUtils.copyProperties(old, article);
-
-				articleRepo.save(old);
-
-				break;
-			case "delete":
-				articleRepo.delete(article);
-		}
+		System.out.println("op = " + op);
 	}
 }

@@ -18,28 +18,22 @@ spring:
           lob:
             non_contextual_creation: true
   kafka:
-    producer:
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-    consumer:
-      group-id: catalogue-${random.uuid}
+   consumer:
+      group-id: catalogue-1
       auto-offset-reset: earliest
-
-  cloud:
-    consul:
-      discovery:
-        # see https://github.com/spring-cloud/spring-cloud-consul/issues/365
-        health-check-path: /info
-
 
 server:
   port: 8080
 
 management:
-  endpoints:
+  endpoint:
     health:
-      show-details: true
+      show-details: always
 
+  endpoints:
     web:
       exposure:
         include: "*"
+    prometheus:
+      enabled: true
 
