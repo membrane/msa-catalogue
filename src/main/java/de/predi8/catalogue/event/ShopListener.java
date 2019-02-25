@@ -1,8 +1,7 @@
-package de.predi8.workshop.catalogue.event;
+package de.predi8.catalogue.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.predi8.workshop.catalogue.domain.Article;
-import de.predi8.workshop.catalogue.repository.ArticleRepository;
+import de.predi8.catalogue.repository.ArticleRepository;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 

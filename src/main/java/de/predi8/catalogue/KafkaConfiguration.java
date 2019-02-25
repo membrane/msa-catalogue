@@ -1,8 +1,8 @@
-package de.predi8.workshop.catalogue;
+package de.predi8.catalogue;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import de.predi8.workshop.catalogue.event.Operation;
+import de.predi8.catalogue.event.Operation;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -17,6 +17,8 @@ import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
+import static com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT;
+
 @EnableKafka
 @Configuration
 public class KafkaConfiguration {
@@ -29,7 +31,7 @@ public class KafkaConfiguration {
 	 * @return
 	 */
 	@Bean
-	public ConsumerFactory<String, Operation> consumerFactory( KafkaProperties props) {
+	public ConsumerFactory<String, Operation> consumerFactory(KafkaProperties props) {
 		return new DefaultKafkaConsumerFactory<>( props.buildConsumerProperties(),
 				new StringDeserializer(),
 				new JsonDeserializer<>(Operation.class, false));

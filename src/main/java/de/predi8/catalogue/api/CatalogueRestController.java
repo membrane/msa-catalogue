@@ -1,10 +1,9 @@
-package de.predi8.workshop.catalogue.api;
+package de.predi8.catalogue.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.predi8.workshop.catalogue.domain.Article;
-import de.predi8.workshop.catalogue.error.NotFoundException;
-import de.predi8.workshop.catalogue.event.Operation;
-import de.predi8.workshop.catalogue.repository.ArticleRepository;
+import de.predi8.catalogue.event.Operation;
+import de.predi8.catalogue.model.Article;
+import de.predi8.catalogue.repository.ArticleRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;

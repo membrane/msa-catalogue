@@ -2,7 +2,7 @@ package de.predi8.catalogue;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import de.predi8.workshop.catalogue.event.NullAwareBeanUtilsBean;
+import de.predi8.catalogue.event.NullAwareBeanUtilsBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

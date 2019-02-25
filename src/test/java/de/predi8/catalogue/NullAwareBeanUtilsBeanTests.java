@@ -1,7 +1,7 @@
-package de.predi8.workshop.catalogue;
+package de.predi8.catalogue;
 
-import de.predi8.workshop.catalogue.domain.Article;
-import de.predi8.workshop.catalogue.event.NullAwareBeanUtilsBean;
+import de.predi8.catalogue.event.NullAwareBeanUtilsBean;
+import de.predi8.catalogue.model.Article;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
