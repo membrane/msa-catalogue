@@ -5,9 +5,6 @@ import de.predi8.catalogue.repository.ArticleRepository;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-
 @Service
 public class ShopListener {
 	private final ObjectMapper mapper;
