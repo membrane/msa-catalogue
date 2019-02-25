@@ -1,4 +1,4 @@
-package de.predi8.workshop.catalogue;
+package de.predi8.catalogue;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
