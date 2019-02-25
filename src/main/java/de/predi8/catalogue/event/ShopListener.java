@@ -17,7 +17,7 @@ public class ShopListener {
 		this.beanUtils = beanUtils;
 	}
 
-	@KafkaListener(topics = "shop")
+	//@KafkaListener(topics = "shop")
 	public void listen(Operation op) throws Exception {
 		System.out.println("op = " + op);
 	}
