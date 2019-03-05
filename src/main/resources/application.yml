@@ -17,9 +17,10 @@ spring:
           # Fix for Spring 2 and Postgres
           lob:
             non_contextual_creation: true
+
   kafka:
    consumer:
-      group-id: catalogue-1
+      group-id: catalogue-7
       auto-offset-reset: earliest
 
 server:

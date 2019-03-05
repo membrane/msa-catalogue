@@ -33,13 +33,12 @@ public class KafkaConfiguration {
 	public ConsumerFactory<String, Operation> consumerFactory(KafkaProperties props) {
 		return new DefaultKafkaConsumerFactory<>( props.buildConsumerProperties(),
 				new StringDeserializer(),
-				new JsonDeserializer<>(Operation.class, false));
+				new JsonDeserializer<>( Operation.class, false));
 	}
 
 
 	@Bean
 	public ProducerFactory<Object, Object> producerFactory( KafkaProperties props) {
-
 		return new DefaultKafkaProducerFactory<>(props.buildProducerProperties(), new StringSerializer(), (JsonSerializer) getJSONSerializer());
 	}
 
