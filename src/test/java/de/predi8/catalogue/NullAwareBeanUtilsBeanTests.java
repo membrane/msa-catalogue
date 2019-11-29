@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class NullAwareBeanUtilsBeanTests {
+
 	@Test
 	public void testNullAwareBean() throws InvocationTargetException, IllegalAccessException {
 		Article orig = new Article("123", "abc", new BigDecimal(1.99));
