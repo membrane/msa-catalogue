@@ -1,6 +1,6 @@
-package de.predi8.catalogue;
+package de.predic8.catalogue;
 
-import de.predi8.catalogue.event.NullAwareBeanUtilsBean;
+import de.predic8.catalogue.event.NullAwareBeanUtilsBean;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 

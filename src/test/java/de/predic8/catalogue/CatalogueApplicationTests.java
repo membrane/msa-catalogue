@@ -1,4 +1,4 @@
-package de.predi8.catalogue;
+package de.predic8.catalogue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,7 +1,7 @@
-package de.predi8.catalogue;
+package de.predic8.catalogue;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.predi8.catalogue.event.Operation;
+import de.predic8.catalogue.event.Operation;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;

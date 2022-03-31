@@ -1,4 +1,4 @@
-package de.predi8.catalogue.event;
+package de.predic8.catalogue.event;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;

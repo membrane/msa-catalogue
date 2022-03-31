@@ -1,9 +1,9 @@
-package de.predi8.catalogue.api;
+package de.predic8.catalogue.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.predi8.catalogue.event.Operation;
-import de.predi8.catalogue.model.Article;
-import de.predi8.catalogue.repository.ArticleRepository;
+import de.predic8.catalogue.event.Operation;
+import de.predic8.catalogue.model.Article;
+import de.predic8.catalogue.repository.ArticleRepository;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

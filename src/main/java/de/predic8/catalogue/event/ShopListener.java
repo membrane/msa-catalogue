@@ -1,8 +1,7 @@
-package de.predi8.catalogue.event;
+package de.predic8.catalogue.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.predi8.catalogue.repository.ArticleRepository;
-import org.springframework.kafka.annotation.KafkaListener;
+import de.predic8.catalogue.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,4 +1,4 @@
-package de.predi8.catalogue.error;
+package de.predic8.catalogue.error;
 
 import org.springframework.web.bind.annotation.ResponseStatus;
 

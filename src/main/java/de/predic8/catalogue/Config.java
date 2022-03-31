@@ -1,4 +1,4 @@
-package de.predi8.catalogue;
+package de.predic8.catalogue;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
